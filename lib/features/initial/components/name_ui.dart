@@ -1,7 +1,5 @@
 import 'package:beseech/main.dart';
 
-import '../../app_user/app_user_bloc.dart';
-
 class NameUI extends UI {
   const NameUI({super.key});
 

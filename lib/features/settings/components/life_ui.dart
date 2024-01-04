@@ -1,7 +1,4 @@
-import 'package:beseech/features/app_user/app_user_bloc.dart';
 import 'package:beseech/main.dart';
-
-import '../../prayers/models.dart';
 
 class LifeUI extends UI {
   const LifeUI({super.key});

@@ -1,10 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
-import 'package:beseech/features/app_user/app_user_bloc.dart';
-import 'package:beseech/features/initial/pages/initial_page.dart';
-
 import 'main.dart';
-
+export 'package:beseech/features/app_user/app_user_bloc.dart';
+export 'package:beseech/features/initial/pages/initial_page.dart';
+export 'package:beseech/features/prayers/models.dart';
 export 'dart:io';
 export 'package:beseech/features/home/pages/home_page.dart';
 export 'package:beseech/features/onboarding/onboarding_bloc.dart';
@@ -26,6 +23,7 @@ export 'package:intl/intl.dart' hide TextDirection;
 export 'package:states_rebuilder/scr/state_management/common/logger.dart';
 export 'package:states_rebuilder/states_rebuilder.dart';
 export 'package:uuid/uuid.dart';
+export 'package:path_provider/path_provider.dart';
 
 typedef UI = StatelessWidget;
 
@@ -33,8 +31,9 @@ void main() async {
   await RM.storageInitializer(
     BlocPersistence(),
   );
+  final documentsDir = await getApplicationDocumentsDirectory();
   HydratedBloc.storage =
-      await HydratedStorage.build(storageDirectory: Directory.current);
+      await HydratedStorage.build(storageDirectory: documentsDir);
   runApp(
     const ProvidersUI(),
   );

@@ -1,5 +1,3 @@
-import 'package:beseech/features/app_user/app_user_bloc.dart';
-import 'package:beseech/features/initial/pages/initial_page.dart';
 import 'package:beseech/main.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 

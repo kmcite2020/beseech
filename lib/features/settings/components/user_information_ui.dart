@@ -1,6 +1,5 @@
 import 'package:beseech/main.dart';
 
-import '../../app_user/app_user_bloc.dart';
 import 'life_ui.dart';
 
 class UserInformationUI extends UI {
