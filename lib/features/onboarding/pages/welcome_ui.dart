@@ -1,5 +1,4 @@
 import 'package:beseech/main.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 
 class OnboardingPage extends UI {
   static const route = '/welcome';
@@ -8,7 +7,6 @@ class OnboardingPage extends UI {
     DateTime? givenDate,
     required BuildContext context,
   }) async {
-    final AppUserBloc appUserBloc = context.watch();
     final value = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -16,9 +14,9 @@ class OnboardingPage extends UI {
       lastDate: DateTime.now(),
     );
     if (value == null) {
-      appUserBloc.setDateOfBirth(givenDate!);
+      setDateOfBirth(givenDate!);
     } else {
-      appUserBloc.setDateOfBirth(value);
+      setDateOfBirth(value);
     }
   }
 
@@ -26,13 +24,12 @@ class OnboardingPage extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     List<Widget> uiElements = [
       WelcomeUI(),
       NameSelectionUI(titleTextSize: titleTextSize),
       DateOfBirthUI(titleTextSize: titleTextSize),
       PubertyCalculationMethodUI(titleTextSize: titleTextSize),
-      if (!appUserBloc.appUser.ageBasedOrExplicit)
+      if (!appUser.ageBasedOrExplicit)
         DateOfPubertyUI(
           titleTextSize: titleTextSize,
           updateDateOfPuberty: () => updateDateOfPuberty(context: context),
@@ -44,38 +41,37 @@ class OnboardingPage extends UI {
       appBar: AppBar(
         title: DotsIndicator(
           dotsCount: uiElements.length,
-          position: onboardingBloc.state.onboardingPageIndex.toDouble(),
+          position: onboarding.onboardingPageIndex.toDouble(),
           onTap: (position) {
-            onboardingBloc.setOnboardingPageIndex(position.toInt());
+            setOnboardingPageIndex(position.toInt());
           },
         ),
         automaticallyImplyLeading: false,
       ),
       body: IndexedStack(
-        index: onboardingBloc.state.onboardingPageIndex,
+        index: onboarding.onboardingPageIndex,
         children: uiElements,
       ),
       floatingActionButton: ButtonBar(
         children: [
           ElevatedButton(
-            onPressed: onboardingBloc.state.onboardingPageIndex != 0
+            onPressed: onboarding.onboardingPageIndex != 0
                 ? () {
-                    onboardingBloc.setOnboardingPageIndex(
-                      onboardingBloc.state.onboardingPageIndex - 1,
+                    setOnboardingPageIndex(
+                      onboarding.onboardingPageIndex - 1,
                     );
                   }
                 : null,
             child: const Icon(Icons.arrow_back),
           ),
           ElevatedButton(
-            onPressed:
-                onboardingBloc.state.onboardingPageIndex < uiElements.length - 1
-                    ? () {
-                        onboardingBloc.setOnboardingPageIndex(
-                          onboardingBloc.state.onboardingPageIndex + 1,
-                        );
-                      }
-                    : null,
+            onPressed: onboarding.onboardingPageIndex < uiElements.length - 1
+                ? () {
+                    setOnboardingPageIndex(
+                      onboarding.onboardingPageIndex + 1,
+                    );
+                  }
+                : null,
             child: const Icon(Icons.arrow_forward),
           ),
         ],
@@ -109,12 +105,13 @@ class NameSelectionUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return ListView(
       children: [
         'What is your name?'.text(textScaleFactor: titleTextSize).pad(),
         TextFormField(
-          onChanged: appUserBloc.setUserName,
+          onChanged: (userName) {
+            appUser(appUser.copyWith(userName: userName));
+          },
         ).pad(),
       ],
     );
@@ -131,11 +128,10 @@ class DateOfBirthUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return ListView(
       children: [
         'When were you born?'.text(textScaleFactor: titleTextSize).pad(),
-        appUserBloc.appUser.dateOfBirth.humanReadable.text().pad().card().pad(),
+        appUser.dateOfBirth.humanReadable.text().pad().card().pad(),
         ElevatedButton(
           onPressed: () => OnboardingPage.updateDateOfBirth(context: context),
           child: 'Update your Date Of Birth'.text().pad(),
@@ -155,7 +151,6 @@ class PubertyCalculationMethodUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return ListView(
       children: [
         'How do you want to calculate your Puberty?'
@@ -165,13 +160,11 @@ class PubertyCalculationMethodUI extends StatelessWidget {
             .text()
             .pad(),
         SwitchListTile(
-          title: (appUserBloc.appUser.ageBasedOrExplicit
-                  ? 'AGE-BASED'
-                  : 'EXPLICIT')
+          title: (appUser.ageBasedOrExplicit ? 'AGE-BASED' : 'EXPLICIT')
               .text()
               .pad(),
-          value: appUserBloc.appUser.ageBasedOrExplicit,
-          onChanged: appUserBloc.setAgeBasedOrExplicit,
+          value: appUser.ageBasedOrExplicit,
+          onChanged: setAgeBasedOrExplicit,
         ).card(),
       ],
     );
@@ -190,7 +183,6 @@ class DateOfPubertyUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return ListView(
       children: [
         'When you became adult?'.text(textScaleFactor: titleTextSize).pad(),
@@ -199,7 +191,7 @@ class DateOfPubertyUI extends StatelessWidget {
           child: 'Update your Date Of Puberty'.text().pad(),
         ).pad(),
         'Date Of Puberty'.text(textScaleFactor: 2).pad(),
-        appUserBloc.appUser.dateOfBirth.humanReadable.text().pad().card().pad(),
+        appUser.dateOfBirth.humanReadable.text().pad().card().pad(),
       ],
     );
   }
@@ -215,32 +207,30 @@ class GetStartedUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return ListView(
       children: [
         'All set.'.text(textScaleFactor: titleTextSize).pad(),
         'Let\'s go.'.text(textScaleFactor: 1).pad(),
-        '${appUserBloc.appUser.isUserNameValid ? '✅' : '❎'} Your name is ${appUserBloc.appUser.userName}'
+        '${appUser.isUserNameValid ? '✅' : '❎'} Your name is ${appUser.userName}'
             .text()
             .pad(),
-        '${appUserBloc.appUser.isUserAdult ? '✅ Adult.' : '❎ Not an adult.'} ${appUserBloc.appUser.dateOfBirth.humanReadable}'
+        '${appUser.isUserAdult ? '✅ Adult.' : '❎ Not an adult.'} ${appUser.dateOfBirth.humanReadable}'
             .text()
             .pad(),
-        ('Your age is ${(appUserBloc.appUser.age.inDays / 365).toStringAsFixed(0)} years')
+        ('Your age is ${(appUser.age.inDays / 365).toStringAsFixed(0)} years')
             .text()
             .pad()
             .card(),
-        'Your date of birth is ${appUserBloc.appUser.dateOfBirth.humanReadable}'
+        'Your date of birth is ${appUser.dateOfBirth.humanReadable}'
             .text()
             .pad()
             .card(),
         ElevatedButton(
           onPressed: () {
-            return appUserBloc.appUser.isUserNameValid &&
-                appUserBloc.appUser.isUserAdult;
+            return appUser.isUserNameValid && appUser.isUserAdult;
           }()
               ? () {
-                  onboardingBloc.setOnboardingComplete(true);
+                  setOnboardingComplete(true);
                   // navigator.toAndRemoveUntil(Routes.home);
                 }
               : null,

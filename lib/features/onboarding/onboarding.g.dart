@@ -1,20 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'onboarding_model.dart';
+part of 'onboarding.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$OnboardingModelImpl _$$OnboardingModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$OnboardingModelImpl(
+_$OnboardingImpl _$$OnboardingImplFromJson(Map<String, dynamic> json) =>
+    _$OnboardingImpl(
       onboardingPageIndex: json['onboardingPageIndex'] as int,
       isOnboardingComplete: json['isOnboardingComplete'] as bool,
     );
 
-Map<String, dynamic> _$$OnboardingModelImplToJson(
-        _$OnboardingModelImpl instance) =>
+Map<String, dynamic> _$$OnboardingImplToJson(_$OnboardingImpl instance) =>
     <String, dynamic>{
       'onboardingPageIndex': instance.onboardingPageIndex,
       'isOnboardingComplete': instance.isOnboardingComplete,

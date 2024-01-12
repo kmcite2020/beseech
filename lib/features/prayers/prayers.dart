@@ -1,9 +1,9 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:beseech/main.dart';
 part 'prayers.freezed.dart';
 part 'prayers.g.dart';
 
 @freezed
-class Prayers with _$Prayers {
+class Prayers with _$Prayers implements Model<Prayers> {
   const factory Prayers.raw({
     required final int fajr,
     required final int zuhr,
@@ -23,6 +23,9 @@ class Prayers with _$Prayers {
         isha: 0,
       );
   factory Prayers.fromJson(json) => _$PrayersFromJson(json);
+
+  @override
+  Prayers call([Prayers? t]) => throw UnimplementedError();
 }
 
 @freezed
@@ -33,8 +36,6 @@ class Prayer with _$Prayer {
   }) = _Prayer;
 
   const Prayer._();
-
-  int get count => prayers.length;
 
   factory Prayer.fromJson(Map<String, dynamic> json) => _$PrayerFromJson(json);
 }

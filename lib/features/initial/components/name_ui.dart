@@ -5,7 +5,6 @@ class NameUI extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
@@ -34,16 +33,18 @@ class NameUI extends UI {
           ),
           if (isEditingName.state)
             TextFormField(
-              initialValue: appUserBloc.appUser.userName,
-              onChanged: appUserBloc.setUserName,
+              initialValue: appUser.userName,
+              onChanged: (userName) {
+                appUser(appUser.copyWith(userName: userName));
+              },
               onFieldSubmitted: (_) => isEditingName.toggle(),
             ).pad()
           else
-            appUserBloc.appUser.userName.text().pad().card().pad(),
+            appUser.userName.text().pad().card().pad(),
         ],
       ),
     ).pad();
   }
 }
 
-final isEditingName = true.inj();
+final isEditingName = false.inj();

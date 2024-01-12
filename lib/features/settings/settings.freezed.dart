@@ -25,7 +25,47 @@ mixin _$Settings {
   ThemeMode get themeMode => throw _privateConstructorUsedError;
   @MaterialColorConverter()
   MaterialColor get materialColor => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            double borderRadius,
+            double padding,
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double borderRadius, double padding, ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)?
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double borderRadius, double padding, ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)?
+        raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Settings value) raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Settings value)? raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Settings value)? raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SettingsCopyWith<Settings> get copyWith =>
@@ -137,12 +177,13 @@ class __$$SettingsImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SettingsImpl implements _Settings {
+class _$SettingsImpl extends _Settings {
   const _$SettingsImpl(
       {required this.borderRadius,
       required this.padding,
       required this.themeMode,
-      @MaterialColorConverter() required this.materialColor});
+      @MaterialColorConverter() required this.materialColor})
+      : super._();
 
   factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$SettingsImplFromJson(json);
@@ -159,7 +200,7 @@ class _$SettingsImpl implements _Settings {
 
   @override
   String toString() {
-    return 'Settings(borderRadius: $borderRadius, padding: $padding, themeMode: $themeMode, materialColor: $materialColor)';
+    return 'Settings.raw(borderRadius: $borderRadius, padding: $padding, themeMode: $themeMode, materialColor: $materialColor)';
   }
 
   @override
@@ -188,6 +229,71 @@ class _$SettingsImpl implements _Settings {
       __$$SettingsImplCopyWithImpl<_$SettingsImpl>(this, _$identity);
 
   @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            double borderRadius,
+            double padding,
+            ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)
+        raw,
+  }) {
+    return raw(borderRadius, padding, themeMode, materialColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(double borderRadius, double padding, ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)?
+        raw,
+  }) {
+    return raw?.call(borderRadius, padding, themeMode, materialColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(double borderRadius, double padding, ThemeMode themeMode,
+            @MaterialColorConverter() MaterialColor materialColor)?
+        raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(borderRadius, padding, themeMode, materialColor);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Settings value) raw,
+  }) {
+    return raw(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Settings value)? raw,
+  }) {
+    return raw?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Settings value)? raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(this);
+    }
+    return orElse();
+  }
+
+  @override
   Map<String, dynamic> toJson() {
     return _$$SettingsImplToJson(
       this,
@@ -195,13 +301,14 @@ class _$SettingsImpl implements _Settings {
   }
 }
 
-abstract class _Settings implements Settings {
+abstract class _Settings extends Settings {
   const factory _Settings(
       {required final double borderRadius,
       required final double padding,
       required final ThemeMode themeMode,
       @MaterialColorConverter()
       required final MaterialColor materialColor}) = _$SettingsImpl;
+  const _Settings._() : super._();
 
   factory _Settings.fromJson(Map<String, dynamic> json) =
       _$SettingsImpl.fromJson;

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'shared.dart';
 
-class LeadingBackButton extends ReactiveStatelessWidget {
+class LeadingBackButton extends UI {
   const LeadingBackButton({super.key});
 
   @override

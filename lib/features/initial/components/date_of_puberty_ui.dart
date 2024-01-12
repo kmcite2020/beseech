@@ -1,13 +1,10 @@
 import 'package:beseech/main.dart';
 
 class DateOfPubertyUI extends UI {
-  const DateOfPubertyUI({
-    super.key,
-  });
+  const DateOfPubertyUI({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
@@ -28,11 +25,7 @@ class DateOfPubertyUI extends UI {
               'DATE OF PUBERTY - became adult on'.text().pad(),
             ],
           ),
-          appUserBloc.appUser.dateOfPuberty.humanReadable
-              .text()
-              .pad()
-              .card()
-              .pad(),
+          appUser.dateOfPuberty.humanReadable.text().pad().card().pad(),
           ElevatedButton(
             onPressed: () => updateDateOfPuberty(context: context),
             child: 'What is your puberty date?'.text(),

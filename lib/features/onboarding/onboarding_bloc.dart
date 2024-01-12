@@ -1,32 +1,9 @@
-import 'package:beseech/main.dart';
+import 'onboarding.dart';
 
-import 'onboarding_model.dart';
+void setOnboardingPageIndex(int value) {
+  onboarding(onboarding.copyWith(onboardingPageIndex: value));
+}
 
-final onboardingBloc = OnboardingBloc();
-
-class OnboardingBloc extends HydratedCubit<OnboardingModel> {
-  OnboardingBloc() : super(OnboardingModel.init());
-
-  void setOnboardingModel(
-    OnboardingModel modifier,
-  ) =>
-      emit(modifier);
-
-  void setOnboardingPageIndex(int value) {
-    setOnboardingModel(
-      state.copyWith(onboardingPageIndex: value),
-    );
-  }
-
-  void setOnboardingComplete(bool value) {
-    setOnboardingModel(
-      state.copyWith(isOnboardingComplete: value),
-    );
-  }
-
-  @override
-  OnboardingModel? fromJson(json) => OnboardingModel.fromJson(json);
-
-  @override
-  Map<String, dynamic>? toJson(state) => state.toJson();
+void setOnboardingComplete(bool value) {
+  onboarding(onboarding.copyWith(isOnboardingComplete: value));
 }

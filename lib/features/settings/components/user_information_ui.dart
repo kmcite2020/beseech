@@ -9,7 +9,6 @@ class UserInformationUI extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -23,27 +22,38 @@ class UserInformationUI extends UI {
               children: [
                 const Divider(),
                 'NAME'.text().pad(),
-                if (appUserBloc.appUser.editing)
+                if (appUser.editing)
                   TextFormField(
-                    initialValue: appUserBloc.appUser.userName,
-                    onChanged: appUserBloc.setUserName,
-                    onFieldSubmitted: (value) {
-                      appUserBloc.setEditing(false);
+                    initialValue: appUser.userName,
+                    onChanged: (userName) {
+                      appUser(appUser.copyWith(userName: userName));
                     },
+                    onFieldSubmitted: (_) =>
+                        appUser = appUser.copyWith(editing: false),
                   ).pad()
                 else
-                  appUserBloc.appUser.userName.text().pad().container(
-                    onTap: () {
-                      // appUserBloc.setEditing(true);
-                      'works'.inform();
-                    },
-                  ),
+                  appUser.userName.text().pad().container(
+                        onTap: () => appUser = appUser.copyWith(editing: true),
+                      ),
                 const Divider(),
                 'DATE OF BIRTH'.text().pad(),
-                (appUserBloc.appUser.dateOfBirth.humanReadable).text().pad(),
+                (appUser.dateOfBirth.humanReadable).text().pad().container(
+                  onTap: () async {
+                    final selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: appUser.dateOfBirth,
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now(),
+                    );
+                    if (selectedDate != null)
+                      appUser(
+                        appUser.copyWith(dateOfBirth: selectedDate),
+                      );
+                  },
+                ),
                 const Divider(),
                 'DATE OF PUBERTY'.text().pad(),
-                (appUserBloc.appUser.dateOfPuberty.humanReadable).text().pad(),
+                (appUser.dateOfPuberty.humanReadable).text().pad(),
                 const Divider(),
                 const LifeUI()
               ],

@@ -5,7 +5,6 @@ class SettingsPage extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsBloc settingsBloc = context.watch();
     return Scaffold(
       appBar: AppBar(
         leading: const LeadingBackButton(),
@@ -23,23 +22,25 @@ class SettingsPage extends UI {
           const ThemeModeUI(),
           MySlider(
             name: 'Border Radius',
-            value: settingsBloc.settings.borderRadius,
-            onChanged: settingsBloc.setBorderRadius,
+            value: borderRadius,
+            onChanged: (_) => borderRadius = _,
             min: 0,
             max: 30,
           ).pad(),
           MySlider(
             name: 'Padding',
-            value: settingsBloc.settings.padding,
-            onChanged: settingsBloc.setPadding,
+            value: padding,
+            onChanged: (_) => padding = _,
             min: 4,
             max: 10,
           ).pad(),
           const MaterialColorsUI(),
-          // ElevatedButton(
-          //   onPressed: () => domainBloc.init(),
-          //   child: 'DELETE ALL'.text(),
-          // ).pad(),
+          ElevatedButton(
+            onPressed: onboarding == Onboarding()
+                ? null
+                : () => onboarding = Onboarding(),
+            child: 'RESET SETTINGS'.text(),
+          ).pad(),
         ],
       ),
     );

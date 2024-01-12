@@ -26,7 +26,59 @@ mixin _$AppUser {
   DateTime get dateOfBirth => throw _privateConstructorUsedError;
   DateTime get dateOfPubertyExplicit => throw _privateConstructorUsedError;
   AgeVysor get ageVysor => throw _privateConstructorUsedError;
-
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)?
+        raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)?
+        raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AppUser value) raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AppUser value)? raw,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AppUser value)? raw,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $AppUserCopyWith<AppUser> get copyWith => throw _privateConstructorUsedError;
@@ -188,7 +240,7 @@ class _$AppUserImpl extends _AppUser {
 
   @override
   String toString() {
-    return 'AppUser(userName: $userName, editing: $editing, ageBasedOrExplicit: $ageBasedOrExplicit, dateOfBirth: $dateOfBirth, dateOfPubertyExplicit: $dateOfPubertyExplicit, ageVysor: $ageVysor)';
+    return 'AppUser.raw(userName: $userName, editing: $editing, ageBasedOrExplicit: $ageBasedOrExplicit, dateOfBirth: $dateOfBirth, dateOfPubertyExplicit: $dateOfPubertyExplicit, ageVysor: $ageVysor)';
   }
 
   @override
@@ -219,6 +271,86 @@ class _$AppUserImpl extends _AppUser {
   @pragma('vm:prefer-inline')
   _$$AppUserImplCopyWith<_$AppUserImpl> get copyWith =>
       __$$AppUserImplCopyWithImpl<_$AppUserImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)
+        raw,
+  }) {
+    return raw(userName, editing, ageBasedOrExplicit, dateOfBirth,
+        dateOfPubertyExplicit, ageVysor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)?
+        raw,
+  }) {
+    return raw?.call(userName, editing, ageBasedOrExplicit, dateOfBirth,
+        dateOfPubertyExplicit, ageVysor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            String userName,
+            bool editing,
+            bool ageBasedOrExplicit,
+            DateTime dateOfBirth,
+            DateTime dateOfPubertyExplicit,
+            AgeVysor ageVysor)?
+        raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(userName, editing, ageBasedOrExplicit, dateOfBirth,
+          dateOfPubertyExplicit, ageVysor);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AppUser value) raw,
+  }) {
+    return raw(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AppUser value)? raw,
+  }) {
+    return raw?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AppUser value)? raw,
+    required TResult orElse(),
+  }) {
+    if (raw != null) {
+      return raw(this);
+    }
+    return orElse();
+  }
 
   @override
   Map<String, dynamic> toJson() {

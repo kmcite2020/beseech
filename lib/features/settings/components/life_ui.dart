@@ -5,15 +5,12 @@ class LifeUI extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
-    final SettingsBloc settingsBloc = context.watch();
-    final UserAgeBloc userAgeBloc = context.watch();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         'LIFE'.text().pad(),
         DropdownButtonFormField(
-          value: appUserBloc.appUser.ageVysor,
+          value: appUser.ageVysor,
           items: AgeVysor.values
               .map(
                 (e) => DropdownMenuItem(
@@ -22,12 +19,11 @@ class LifeUI extends UI {
                 ),
               )
               .toList(),
-          onChanged: appUserBloc.setAgeVysor,
-          padding: EdgeInsets.all(settingsBloc.padding),
+          onChanged: setAgeVysor,
+          padding: EdgeInsets.all(padding),
         ),
         () {
-          final age = userAgeBloc.state;
-          switch (appUserBloc.appUser.ageVysor) {
+          switch (appUser.ageVysor) {
             case AgeVysor.years:
               return "${age.inDays ~/ (30 * 12)} YEARS".text();
             case AgeVysor.months:

@@ -1,15 +1,15 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:beseech/features/shared/app.dart';
 
-import '../prayers/models.dart';
+import '../../main.dart';
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
 @freezed
-class AppUser with _$AppUser {
+class AppUser with _$AppUser implements Model<AppUser> {
   static const fourteenYears = Duration(days: 365 * 14);
 
   const AppUser._();
-  factory AppUser({
+  factory AppUser.raw({
     required final String userName,
     required final bool editing,
     required final bool ageBasedOrExplicit,
@@ -17,7 +17,7 @@ class AppUser with _$AppUser {
     required final DateTime dateOfPubertyExplicit,
     required final AgeVysor ageVysor,
   }) = _AppUser;
-  factory AppUser.init() => AppUser(
+  factory AppUser() => AppUser.raw(
         userName: '',
         editing: false,
         ageBasedOrExplicit: false,
@@ -40,4 +40,36 @@ class AppUser with _$AppUser {
   bool get isUserAdult => dateOfPuberty.isBefore(DateTime.now());
 
   factory AppUser.fromJson(json) => _$AppUserFromJson(json);
+  @override
+  AppUser call([AppUser? _appUser]) =>
+      _appUser != null ? appUser = _appUser : appUser;
 }
+
+AppUser get appUser => application.appUser;
+set appUser(AppUser _) => application(application.copyWith(appUser: _));
+final ageRM = RM.injectStream(
+  _age,
+  initialState: Duration.zero,
+);
+Stream<Duration> _age() {
+  return Stream.periodic(
+    17.milliseconds,
+    (_) {
+      final now = DateTime.now();
+      return Duration(
+        milliseconds: now.difference(appUser.dateOfBirth).inMilliseconds,
+      );
+    },
+  );
+}
+
+Duration get age => ageRM.state;
+
+void setDateOfBirth(DateTime value) =>
+    appUser = appUser.copyWith(dateOfBirth: value);
+void setAgeBasedOrExplicit(bool value) =>
+    appUser = appUser.copyWith(ageBasedOrExplicit: value);
+void setDateOfPubertyExplicit(DateTime value) =>
+    appUser = appUser.copyWith(dateOfPubertyExplicit: value);
+void setAgeVysor(AgeVysor? value) =>
+    appUser = appUser.copyWith(ageVysor: value!);

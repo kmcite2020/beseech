@@ -5,11 +5,10 @@ class RemainingPrayersUI extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final PrayersBloc prayersBloc = context.watch();
     return Column(
       children: [
         'REMAINING PRAYERS'.text(textScaleFactor: 2),
-        prayersBloc.state.all.text(textScaleFactor: 3),
+        prayers.all.text(textScaleFactor: 3),
       ],
     ).pad();
   }

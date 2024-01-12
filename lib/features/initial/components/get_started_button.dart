@@ -1,4 +1,3 @@
-import 'package:beseech/features/shared/navigation_extensions.dart';
 import 'package:beseech/main.dart';
 
 class GetStartedButton extends UI {
@@ -8,7 +7,6 @@ class GetStartedButton extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final AppUserBloc appUserBloc = context.watch();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -22,21 +20,13 @@ class GetStartedButton extends UI {
         //   ],
         // ).pad(),
         ElevatedButton(
-          onPressed: appUserBloc.state.isUserNameValid
-              ? () {
-                  onboardingBloc.setOnboardingComplete(true);
-                }
+          onPressed: appUser.isUserNameValid
+              ? () => setOnboardingComplete(true)
               : null,
           style: ElevatedButton.styleFrom(
             minimumSize: const Size.fromHeight(60),
           ),
           child: 'Get Started'.text(),
-        ).pad(),
-        ElevatedButton(
-          onPressed: () {
-            context.push(HomePage());
-          },
-          child: 'bypass'.text(),
         ).pad(),
       ],
     ).pad();

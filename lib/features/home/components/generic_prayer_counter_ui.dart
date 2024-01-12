@@ -15,7 +15,6 @@ class GenericPrayerCounterUI extends UI {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsBloc settingsBloc = context.watch();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -25,11 +24,11 @@ class GenericPrayerCounterUI extends UI {
             )
             .pad()
             .container(
-              borderRadius: settingsBloc.settings.borderRadius,
+              customBorderRadiusValue: borderRadius,
               spread: 60,
               depth: 120,
-              color: settingsBloc.settings.materialColor.shade400,
-              parentColor: settingsBloc.settings.materialColor.shade800,
+              color: materialColor.shade400,
+              parentColor: materialColor.shade800,
             ),
         Row(
           children: [

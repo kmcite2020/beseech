@@ -1,13 +1,9 @@
+import 'package:package_info_plus/package_info_plus.dart';
+
 import '../../main.dart';
 
 Future<void> core() async {}
 String get randomID => Uuid().v4();
-
-abstract class ToJson {
-  String toJson();
-}
-
-String toJson<T extends ToJson>(T value) => value.toJson();
 
 extension ObjectExtensions on Object? {
   Widget text({
@@ -67,7 +63,7 @@ extension WidgetExtensions on Widget {
   Widget center() => Center(child: this);
 }
 
-class MySlider extends StatelessWidget {
+class MySlider extends UI {
   const MySlider({
     super.key,
     this.name = '',
@@ -88,7 +84,6 @@ class MySlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SettingsBloc settingsBloc = context.watch();
     return Card(
       // shape: RoundedRectangleBorder(
       //   borderRadius: _borderRadius,
@@ -123,8 +118,7 @@ class MySlider extends StatelessWidget {
                   value: (value - min) / (max - min),
                   minHeight: 40,
                   backgroundColor: Colors.grey,
-                  borderRadius:
-                      BorderRadius.circular(settingsBloc.settings.borderRadius),
+                  borderRadius: BorderRadius.circular(borderRadius),
                   // borderRadius: _borderRadius,
                 ),
               );
@@ -136,12 +130,13 @@ class MySlider extends StatelessWidget {
   }
 }
 
-class BlocPersistence implements IPersistStore {
+class HiveStorage implements IPersistStore {
   late Box _box;
   @override
   Future<void> init() async {
     await Hive.initFlutter();
-    _box = await Hive.openBox('default');
+    final info = await PackageInfo.fromPlatform();
+    _box = await Hive.openBox(info.appName);
   }
 
   @override
@@ -157,46 +152,37 @@ class BlocPersistence implements IPersistStore {
   Future<void> deleteAll() => _box.clear();
 }
 
-class Themes {
-  final BuildContext context;
-  static const cardElevation = 4.0;
-  Themes(this.context);
-
-  ThemeMode get themeMode => context.watch<SettingsBloc>().themeMode;
-
-  ThemeData theme() {
-    final SettingsBloc settingsBloc = context.watch();
-    return FlexThemeData.light(
-      colorScheme:
-          ColorScheme.fromSwatch(primarySwatch: settingsBloc.materialColor),
-      fontFamily: GoogleFonts.getFont('Dosis').fontFamily!,
-      useMaterial3: true,
-      lightIsWhite: true,
-      subThemesData: FlexSubThemesData(
-        defaultRadius: settingsBloc.borderRadius,
-        cardElevation: cardElevation,
-        cardRadius: settingsBloc.borderRadius,
-      ),
-      appBarStyle: FlexAppBarStyle.primary,
-    );
-  }
-
-  ThemeData darkTheme() {
-    final SettingsBloc settingsBloc = context.watch();
-    return FlexThemeData.dark(
-      colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: settingsBloc.materialColor,
-        brightness: Brightness.dark,
-      ),
-      fontFamily: GoogleFonts.getFont('Dosis').fontFamily ?? 'Lotion',
-      useMaterial3: true,
-      darkIsTrueBlack: true,
-      subThemesData: FlexSubThemesData(
-        defaultRadius: settingsBloc.borderRadius,
-        cardElevation: cardElevation,
-        cardRadius: settingsBloc.borderRadius,
-      ),
-      appBarStyle: FlexAppBarStyle.primary,
-    );
-  }
+ThemeData theme() {
+  return FlexThemeData.light(
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: materialColor),
+    fontFamily: GoogleFonts.getFont('Dosis').fontFamily!,
+    useMaterial3: true,
+    lightIsWhite: true,
+    subThemesData: FlexSubThemesData(
+      defaultRadius: borderRadius,
+      cardElevation: kCardElevation,
+      cardRadius: borderRadius,
+    ),
+    appBarStyle: FlexAppBarStyle.primary,
+  );
 }
+
+ThemeData darkTheme() {
+  return FlexThemeData.dark(
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: materialColor,
+      brightness: Brightness.dark,
+    ),
+    fontFamily: GoogleFonts.getFont('Dosis').fontFamily ?? 'Lotion',
+    useMaterial3: true,
+    darkIsTrueBlack: true,
+    subThemesData: FlexSubThemesData(
+      defaultRadius: borderRadius,
+      cardElevation: kCardElevation,
+      cardRadius: borderRadius,
+    ),
+    appBarStyle: FlexAppBarStyle.primary,
+  );
+}
+
+const kCardElevation = 4.0;

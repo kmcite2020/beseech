@@ -2,31 +2,14 @@
 import 'package:beseech/main.dart';
 
 part 'common_ui.dart';
-part 'router.dart';
 
 extension A0001 on Object? {
   String get str {
     return toString();
   }
-
-  // Widget text({
-  //   double? size,
-  //   Color? textColor,
-  //   Color? parentColor,
-  //   Color? color,
-  // }) {
-  //   return ClayText(
-  //     str,
-  //     size: size ?? 20,
-  //     color: color,
-  //     parentColor: parentColor,
-  //     textColor:
-  //         textColor ?? configurationBloc.configuration.materialColor.shade800,
-  //   );
-  // }
 }
 
-extension A0002 on DateTime? {
+extension DateTimeExtensions on DateTime? {
   String get humanReadable {
     if (this == null) {
       return 'None';
@@ -36,10 +19,6 @@ extension A0002 on DateTime? {
   }
 }
 
-const APP_STORAGE = 'beseech';
-const SETTINGS_MODEL = 'settings';
-const IS_INIT = 'isInit';
-const PRAYER_MODEL = 'prayers';
 const PRAYER_COUNT_TEXT_SCALE_FACTOR = 5.0;
 const FIRST_RUN_HEADER_TEXT_SCALE_FACTOR = 1.4;
 const ADULT_AGE = 365 * 14;
@@ -62,23 +41,17 @@ extension A0003 on Widget {
     double? maxRadius,
     double? radius,
   }) =>
-      Builder(
-        builder: (context) {
-          final SettingsBloc settingsBloc = context.watch();
-          return CircleAvatar(
-            backgroundColor:
-                backgroundColor ?? settingsBloc.settings.materialColor,
-            foregroundColor: foregroundColor,
-            backgroundImage: backgroundImage,
-            foregroundImage: foregroundImage,
-            onBackgroundImageError: onBackgroundImageError,
-            onForegroundImageError: onForegroundImageError,
-            minRadius: minRadius,
-            maxRadius: maxRadius,
-            radius: radius,
-            child: this,
-          );
-        },
+      CircleAvatar(
+        backgroundColor: backgroundColor ?? materialColor,
+        foregroundColor: foregroundColor,
+        backgroundImage: backgroundImage,
+        foregroundImage: foregroundImage,
+        onBackgroundImageError: onBackgroundImageError,
+        onForegroundImageError: onForegroundImageError,
+        minRadius: minRadius,
+        maxRadius: maxRadius,
+        radius: radius,
+        child: this,
       );
   // Widget get card => Card(
   //       child: this,
@@ -95,39 +68,34 @@ extension A0003 on Widget {
     Color? surfaceColor,
     Color? parentColor,
     double? spread,
-    double? borderRadius,
+    double? customBorderRadiusValue,
     BorderRadius? customBorderRadius,
     CurveType? curveType,
     int? depth,
     bool? emboss,
     void Function()? onTap,
   }) {
-    return Builder(
-      builder: (context) {
-        final SettingsBloc settingsBloc = context.watch();
-        return ClayContainer(
-          height: height,
-          width: width,
-          color: color ?? settingsBloc.materialColor.shade800,
-          surfaceColor: surfaceColor,
-          parentColor: parentColor,
-          spread: spread,
-          borderRadius: borderRadius ?? settingsBloc.borderRadius,
-          customBorderRadius: customBorderRadius,
-          curveType: curveType,
-          depth: depth,
-          emboss: emboss ?? true,
-          child: GestureDetector(
-            onDoubleTap: onTap,
-            child: this,
-          ),
-        );
-      },
+    return ClayContainer(
+      height: height,
+      width: width,
+      color: color ?? materialColor.shade800,
+      surfaceColor: surfaceColor,
+      parentColor: parentColor,
+      spread: spread,
+      borderRadius: customBorderRadiusValue ?? borderRadius,
+      customBorderRadius: customBorderRadius,
+      curveType: curveType,
+      depth: depth,
+      emboss: emboss ?? true,
+      child: GestureDetector(
+        onDoubleTap: onTap,
+        child: this,
+      ),
     );
   }
 }
 
-extension XPOSB on List<Widget> {
+extension ListOfWidgetExtensions on List<Widget> {
   Widget column({
     MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
     MainAxisSize mainAxisSize = MainAxisSize.max,

@@ -80,7 +80,6 @@ void updateDateOfPuberty({
   DateTime? givenDate,
   required BuildContext context,
 }) async {
-  final AppUserBloc appUserBloc = context.watch();
   final value = await showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -88,8 +87,8 @@ void updateDateOfPuberty({
     lastDate: DateTime.now(),
   );
   if (value == null) {
-    appUserBloc.setDateOfPubertyExplicit(givenDate!);
+    setDateOfPubertyExplicit(givenDate!);
   } else {
-    appUserBloc.setDateOfPubertyExplicit(value);
+    setDateOfPubertyExplicit(value);
   }
 }

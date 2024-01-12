@@ -5,12 +5,11 @@ class ThemeModeUI extends UI {
 
   @override
   Widget build(context) {
-    final SettingsBloc settingsBloc = context.watch();
     return Column(
       children: [
         'THEME MODE'.text().pad(),
         DropdownButtonFormField(
-          value: settingsBloc.themeMode,
+          value: themeMode,
           items: ThemeMode.values
               .map(
                 (themeMode) => DropdownMenuItem(
@@ -19,7 +18,7 @@ class ThemeModeUI extends UI {
                 ),
               )
               .toList(),
-          onChanged: settingsBloc.setThemeMode,
+          onChanged: (_) => themeMode = _!,
         ).pad(),
       ],
     ).card();
