@@ -10,6 +10,7 @@ class Prayers with _$Prayers implements Model<Prayers> {
     required final int asar,
     required final int maghrib,
     required final int isha,
+    @Default(<String, Prayer>{}) final Map<String, Prayer> prayers,
   }) = _Prayers;
   const Prayers._();
 
@@ -32,10 +33,8 @@ class Prayers with _$Prayers implements Model<Prayers> {
 class Prayer with _$Prayer {
   const factory Prayer({
     @Default('') final String name,
-    @Default([]) final List prayers,
+    @Default(0) final int count,
   }) = _Prayer;
-
   const Prayer._();
-
-  factory Prayer.fromJson(Map<String, dynamic> json) => _$PrayerFromJson(json);
+  factory Prayer.fromJson(json) => _$PrayerFromJson(json);
 }

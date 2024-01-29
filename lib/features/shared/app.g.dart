@@ -8,7 +8,7 @@ part of 'app.dart';
 
 _$ApplicationImpl _$$ApplicationImplFromJson(Map<String, dynamic> json) =>
     _$ApplicationImpl(
-      settings: Settings.fromJson(json['settings']),
+      settings: SettingsState.fromJson(json['settings']),
       prayers: Prayers.fromJson(json['prayers']),
       onboarding: Onboarding.fromJson(json['onboarding']),
       appUser: AppUser.fromJson(json['appUser']),

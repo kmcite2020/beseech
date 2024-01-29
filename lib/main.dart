@@ -1,3 +1,5 @@
+import 'package:beseech/features/prayers/pages/fajr_bloc.dart';
+
 import 'main.dart';
 
 export 'dart:convert';
@@ -38,24 +40,39 @@ export 'package:uuid/uuid.dart';
 typedef UI = ReactiveStatelessWidget;
 
 void main() async {
-  await storageInitializer(
-    HiveStorage(),
-  );
   await RM.storageInitializer(HiveStorage());
-  runApp(const App());
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (create) => FajrBloc(),
+        ),
+        BlocProvider(
+          create: (create) => SettingsBloc(),
+        )
+      ],
+      child: const App(),
+    ),
+  );
 }
 
 class App extends UI {
   const App({super.key});
   @override
   Widget build(context) {
+    final SettingsBloc settingsBloc = context.watch<SettingsBloc>();
     return MaterialApp(
       navigatorKey: navigator.navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: theme(),
-      darkTheme: darkTheme(),
-      themeMode: themeMode,
+      theme: theme(settingsBloc),
+      darkTheme: darkTheme(settingsBloc),
+      themeMode: settingsBloc.state.themeMode,
       home: onboarding.isOnboardingComplete ? HomePage() : InitialPage(),
+      restorationScopeId: 'app',
     );
   }
 }

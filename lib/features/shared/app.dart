@@ -8,14 +8,14 @@ part 'app.g.dart';
 @freezed
 class Application with _$Application implements Model<Application> {
   const factory Application.raw({
-    required final Settings settings,
+    required final SettingsState settings,
     required final Prayers prayers,
     required final Onboarding onboarding,
     required final AppUser appUser,
   }) = _Application;
 
   factory Application() => Application.raw(
-        settings: Settings(),
+        settings: SettingsState(),
         prayers: Prayers(),
         onboarding: Onboarding(),
         appUser: AppUser(),

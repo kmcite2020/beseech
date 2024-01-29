@@ -5,14 +5,15 @@ class DateOfBirthUI extends UI {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsBloc settingsBloc = context.watch();
     return Container(
       width: double.maxFinite,
       decoration: BoxDecoration(
         border: Border.all(
           width: 2,
-          color: settings.materialColor.withOpacity(.6),
+          color: settingsBloc.state.materialColor.withOpacity(.6),
         ),
-        borderRadius: BorderRadius.circular(settings.borderRadius),
+        borderRadius: BorderRadius.circular(settingsBloc.state.borderRadius),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

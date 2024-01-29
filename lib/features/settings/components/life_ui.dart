@@ -5,6 +5,7 @@ class LifeUI extends UI {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsBloc settingsBloc = context.watch<SettingsBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -20,7 +21,7 @@ class LifeUI extends UI {
               )
               .toList(),
           onChanged: setAgeVysor,
-          padding: EdgeInsets.all(padding),
+          padding: EdgeInsets.all(settingsBloc.state.padding),
         ),
         () {
           switch (appUser.ageVysor) {

@@ -1,3 +1,6 @@
+import 'package:beseech/features/prayers/pages/fajr_bloc.dart';
+import 'package:beseech/features/prayers/pages/fajr_prayer.dart';
+
 import '../../../main.dart';
 
 class HomePage extends UI {
@@ -36,17 +39,37 @@ class HomePage extends UI {
       ),
       body: ListView(
         children: [
-          GenericPrayerCounterUI(
-            name: 'FAJAR',
-            value: fajr,
-            increment: incrementFajr,
-            decrement: decrementFajr,
+          GestureDetector(
+            onTap: () => navigator.to(
+              FajrPage(),
+            ),
+            child: GenericPrayerCounterUI(
+              name: 'FAJAR',
+              value: context.watch<FajrBloc>().state.count,
+              increment: () {
+                context.read<FajrBloc>().add(
+                      FajrEvent.prayerIncremented(),
+                    );
+              },
+              decrement: () {
+                context.read<FajrBloc>().add(
+                      FajrEvent.prayerDecremented(),
+                    );
+              },
+            ),
           ),
-          GenericPrayerCounterUI(
-            name: 'ZUHAR',
-            value: zuhr,
-            increment: incrementZuhr,
-            decrement: decrementZuhr,
+          GestureDetector(
+            onTap: () {
+              navigator.to(
+                ZuhrPage(),
+              );
+            },
+            child: GenericPrayerCounterUI(
+              name: 'ZUHAR',
+              value: zuhr,
+              increment: incrementZuhr,
+              decrement: decrementZuhr,
+            ),
           ),
           GenericPrayerCounterUI(
             name: 'ASAR',
@@ -72,10 +95,51 @@ class HomePage extends UI {
                 depth: 10,
                 curveType: CurveType.concave,
                 emboss: true,
-                customBorderRadiusValue: borderRadius,
-                color: materialColor.shade900,
+                // customBorderRadiusValue: borderRadius,
+                // color: materialColor.shade900,
               )
               .pad(),
+        ],
+      ),
+    );
+  }
+}
+
+class ZuhrPage extends StatefulWidget {
+  const ZuhrPage({super.key});
+
+  @override
+  State<ZuhrPage> createState() => _ZuhrPageState();
+}
+
+class _ZuhrPageState extends State<ZuhrPage> {
+  var count = RestorableInt(0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: ListView(
+        children: [
+          count.value.text(textScaleFactor: 8).pad(),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                count.value++;
+              });
+            },
+            child: '+'.text(textScaleFactor: 4),
+          ).pad(),
+          ElevatedButton(
+            onPressed: () {
+              setState(
+                () {
+                  count.value--;
+                },
+              );
+            },
+            child: '-'.text(textScaleFactor: 4),
+          ).pad(),
         ],
       ),
     );

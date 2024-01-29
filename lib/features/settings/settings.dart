@@ -1,30 +1,72 @@
-import 'package:beseech/features/shared/app.dart';
+import 'dart:async';
 
 import '../../main.dart';
 part 'settings.freezed.dart';
 part 'settings.g.dart';
 
-@freezed
-class Settings with _$Settings implements Model<Settings> {
-  const factory Settings.raw({
-    required final double borderRadius,
-    required final double padding,
-    required final ThemeMode themeMode,
-    @MaterialColorConverter() required final MaterialColor materialColor,
-  }) = _Settings;
-  factory Settings.fromJson(json) => _$SettingsFromJson(json);
-  factory Settings() {
-    return Settings.raw(
-      borderRadius: 0,
-      padding: 0,
-      themeMode: ThemeMode.system,
-      materialColor: Colors.deepOrange,
-    );
+class SettingsBloc extends Bloc<SettingsEvent, SettingsState>
+    with HydratedMixin {
+  SettingsBloc() : super(SettingsState()) {
+    on<_SettingsEventThemeMode>(_OnSettingsEventThemeMode);
+    on<_SettingsEventMaterialColor>(_OnSettingsEventMaterialColor);
+    on<_SettingsEventBorderRadius>(_OnSettingsEventBorderRadius);
+    on<_SettingsEventPadding>(_OnSettingsEventPadding);
   }
 
-  const Settings._();
   @override
-  Settings call([Settings? t]) => throw UnimplementedError();
+  SettingsState? fromJson(Map<String, dynamic> json) =>
+      SettingsState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(SettingsState state) => state.toJson();
+
+  FutureOr<void> _OnSettingsEventThemeMode(
+      _SettingsEventThemeMode event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(themeMode: event.themeMode));
+  }
+
+  FutureOr<void> _OnSettingsEventMaterialColor(
+      _SettingsEventMaterialColor event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(materialColor: event.materialColor));
+  }
+
+  FutureOr<void> _OnSettingsEventBorderRadius(
+      _SettingsEventBorderRadius event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(borderRadius: event.borderRadius));
+  }
+
+  FutureOr<void> _OnSettingsEventPadding(
+      _SettingsEventPadding event, Emitter<SettingsState> emit) {
+    emit(state.copyWith(padding: event.padding));
+  }
+}
+
+@freezed
+class SettingsEvent with _$SettingsEvent {
+  const factory SettingsEvent() = _SettingsEvent;
+  const factory SettingsEvent.themeMode(ThemeMode themeMode) =
+      _SettingsEventThemeMode;
+  const factory SettingsEvent.materialColor(
+          @MaterialColorConverter() MaterialColor materialColor) =
+      _SettingsEventMaterialColor;
+  const factory SettingsEvent.borderRadius(double borderRadius) =
+      _SettingsEventBorderRadius;
+  const factory SettingsEvent.padding(double padding) = _SettingsEventPadding;
+
+  factory SettingsEvent.fromJson(json) => _$SettingsEventFromJson(json);
+}
+
+@freezed
+class SettingsState with _$SettingsState {
+  const factory SettingsState({
+    @Default(8) final double borderRadius,
+    @Default(8) final double padding,
+    @Default(ThemeMode.system) final ThemeMode themeMode,
+    @Default(Colors.amber)
+    @MaterialColorConverter()
+    final MaterialColor materialColor,
+  }) = _SettingsState;
+  factory SettingsState.fromJson(json) => _$SettingsStateFromJson(json);
 }
 
 class MaterialColorConverter implements JsonConverter<MaterialColor, int> {
@@ -34,22 +76,3 @@ class MaterialColorConverter implements JsonConverter<MaterialColor, int> {
   @override
   int toJson(MaterialColor object) => Colors.primaries.indexOf(object);
 }
-
-Settings get settings => application.settings;
-set settings(Settings _) => application(application.copyWith(settings: _));
-
-ThemeMode get themeMode => settings.themeMode;
-set themeMode(ThemeMode? value) {
-  settings = settings.copyWith(themeMode: value!);
-}
-
-MaterialColor get materialColor => settings.materialColor;
-set materialColor(MaterialColor value) =>
-    settings = settings.copyWith(materialColor: value);
-
-double get padding => settings.padding;
-set padding(double value) => settings = settings.copyWith(padding: value);
-
-double get borderRadius => settings.borderRadius;
-set borderRadius(double value) =>
-    settings = settings.copyWith(borderRadius: value);

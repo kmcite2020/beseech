@@ -5,12 +5,13 @@ class BorderRadiusUI extends UI {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsBloc settingsBloc = context.watch<SettingsBloc>();
     return Column(
       children: [
         'Border Radius'.text().pad(),
         Slider(
-          value: borderRadius,
-          onChanged: (_) => borderRadius = _,
+          value: settingsBloc.state.borderRadius,
+          onChanged: (_) => settingsBloc.add(SettingsEvent.borderRadius(_)),
         ).pad(),
       ],
     ).card();

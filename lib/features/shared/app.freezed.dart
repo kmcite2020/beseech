@@ -20,28 +20,28 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Application {
-  Settings get settings => throw _privateConstructorUsedError;
+  SettingsState get settings => throw _privateConstructorUsedError;
   Prayers get prayers => throw _privateConstructorUsedError;
   Onboarding get onboarding => throw _privateConstructorUsedError;
   AppUser get appUser => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Settings settings, Prayers prayers,
+    required TResult Function(SettingsState settings, Prayers prayers,
             Onboarding onboarding, AppUser appUser)
         raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Settings settings, Prayers prayers, Onboarding onboarding,
-            AppUser appUser)?
+    TResult? Function(SettingsState settings, Prayers prayers,
+            Onboarding onboarding, AppUser appUser)?
         raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Settings settings, Prayers prayers, Onboarding onboarding,
-            AppUser appUser)?
+    TResult Function(SettingsState settings, Prayers prayers,
+            Onboarding onboarding, AppUser appUser)?
         raw,
     required TResult orElse(),
   }) =>
@@ -75,12 +75,12 @@ abstract class $ApplicationCopyWith<$Res> {
       _$ApplicationCopyWithImpl<$Res, Application>;
   @useResult
   $Res call(
-      {Settings settings,
+      {SettingsState settings,
       Prayers prayers,
       Onboarding onboarding,
       AppUser appUser});
 
-  $SettingsCopyWith<$Res> get settings;
+  $SettingsStateCopyWith<$Res> get settings;
   $PrayersCopyWith<$Res> get prayers;
   $OnboardingCopyWith<$Res> get onboarding;
   $AppUserCopyWith<$Res> get appUser;
@@ -108,7 +108,7 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
-              as Settings,
+              as SettingsState,
       prayers: null == prayers
           ? _value.prayers
           : prayers // ignore: cast_nullable_to_non_nullable
@@ -126,8 +126,8 @@ class _$ApplicationCopyWithImpl<$Res, $Val extends Application>
 
   @override
   @pragma('vm:prefer-inline')
-  $SettingsCopyWith<$Res> get settings {
-    return $SettingsCopyWith<$Res>(_value.settings, (value) {
+  $SettingsStateCopyWith<$Res> get settings {
+    return $SettingsStateCopyWith<$Res>(_value.settings, (value) {
       return _then(_value.copyWith(settings: value) as $Val);
     });
   }
@@ -166,13 +166,13 @@ abstract class _$$ApplicationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Settings settings,
+      {SettingsState settings,
       Prayers prayers,
       Onboarding onboarding,
       AppUser appUser});
 
   @override
-  $SettingsCopyWith<$Res> get settings;
+  $SettingsStateCopyWith<$Res> get settings;
   @override
   $PrayersCopyWith<$Res> get prayers;
   @override
@@ -201,7 +201,7 @@ class __$$ApplicationImplCopyWithImpl<$Res>
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
-              as Settings,
+              as SettingsState,
       prayers: null == prayers
           ? _value.prayers
           : prayers // ignore: cast_nullable_to_non_nullable
@@ -232,7 +232,7 @@ class _$ApplicationImpl extends _Application {
       _$$ApplicationImplFromJson(json);
 
   @override
-  final Settings settings;
+  final SettingsState settings;
   @override
   final Prayers prayers;
   @override
@@ -272,7 +272,7 @@ class _$ApplicationImpl extends _Application {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Settings settings, Prayers prayers,
+    required TResult Function(SettingsState settings, Prayers prayers,
             Onboarding onboarding, AppUser appUser)
         raw,
   }) {
@@ -282,8 +282,8 @@ class _$ApplicationImpl extends _Application {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Settings settings, Prayers prayers, Onboarding onboarding,
-            AppUser appUser)?
+    TResult? Function(SettingsState settings, Prayers prayers,
+            Onboarding onboarding, AppUser appUser)?
         raw,
   }) {
     return raw?.call(settings, prayers, onboarding, appUser);
@@ -292,8 +292,8 @@ class _$ApplicationImpl extends _Application {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Settings settings, Prayers prayers, Onboarding onboarding,
-            AppUser appUser)?
+    TResult Function(SettingsState settings, Prayers prayers,
+            Onboarding onboarding, AppUser appUser)?
         raw,
     required TResult orElse(),
   }) {
@@ -341,7 +341,7 @@ class _$ApplicationImpl extends _Application {
 
 abstract class _Application extends Application {
   const factory _Application(
-      {required final Settings settings,
+      {required final SettingsState settings,
       required final Prayers prayers,
       required final Onboarding onboarding,
       required final AppUser appUser}) = _$ApplicationImpl;
@@ -351,7 +351,7 @@ abstract class _Application extends Application {
       _$ApplicationImpl.fromJson;
 
   @override
-  Settings get settings;
+  SettingsState get settings;
   @override
   Prayers get prayers;
   @override

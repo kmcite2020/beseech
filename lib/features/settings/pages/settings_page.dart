@@ -5,6 +5,7 @@ class SettingsPage extends UI {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsBloc settingsBloc = context.watch();
     return Scaffold(
       appBar: AppBar(
         leading: const LeadingBackButton(),
@@ -22,15 +23,15 @@ class SettingsPage extends UI {
           const ThemeModeUI(),
           MySlider(
             name: 'Border Radius',
-            value: borderRadius,
-            onChanged: (_) => borderRadius = _,
+            value: settingsBloc.state.borderRadius,
+            onChanged: (_) => settingsBloc.add(SettingsEvent.borderRadius(_)),
             min: 0,
             max: 30,
           ).pad(),
           MySlider(
             name: 'Padding',
-            value: padding,
-            onChanged: (_) => padding = _,
+            value: settingsBloc.state.padding,
+            onChanged: (_) => settingsBloc.add(SettingsEvent.padding(_)),
             min: 4,
             max: 10,
           ).pad(),

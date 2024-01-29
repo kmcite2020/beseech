@@ -10,15 +10,17 @@ class GetStartedButton extends UI {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Row(
-        //   children: [
-        //     Checkbox(
-        //       value: domainBloc.domain.agreed,
-        //       onChanged: domainBloc.setAgreed,
-        //     ),
-        //     'Are you sure?'.text(),
-        //   ],
-        // ).pad(),
+        Row(
+          children: [
+            Checkbox(
+                value: true,
+                // domainBloc.domain.agreed,
+                onChanged: (o) {}
+                //  domainBloc.setAgreed,
+                ),
+            'Are you sure?'.text(),
+          ],
+        ).pad(),
         ElevatedButton(
           onPressed: appUser.isUserNameValid
               ? () => setOnboardingComplete(true)

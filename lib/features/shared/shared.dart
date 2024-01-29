@@ -41,18 +41,21 @@ extension A0003 on Widget {
     double? maxRadius,
     double? radius,
   }) =>
-      CircleAvatar(
-        backgroundColor: backgroundColor ?? materialColor,
-        foregroundColor: foregroundColor,
-        backgroundImage: backgroundImage,
-        foregroundImage: foregroundImage,
-        onBackgroundImageError: onBackgroundImageError,
-        onForegroundImageError: onForegroundImageError,
-        minRadius: minRadius,
-        maxRadius: maxRadius,
-        radius: radius,
-        child: this,
-      );
+      Builder(builder: (context) {
+        final SettingsBloc settingsBloc = context.watch<SettingsBloc>();
+        return CircleAvatar(
+          backgroundColor: backgroundColor ?? settingsBloc.state.materialColor,
+          foregroundColor: foregroundColor,
+          backgroundImage: backgroundImage,
+          foregroundImage: foregroundImage,
+          onBackgroundImageError: onBackgroundImageError,
+          onForegroundImageError: onForegroundImageError,
+          minRadius: minRadius,
+          maxRadius: maxRadius,
+          radius: radius,
+          child: this,
+        );
+      });
   // Widget get card => Card(
   //       child: this,
   //       shape: RoundedRectangleBorder(
@@ -75,23 +78,27 @@ extension A0003 on Widget {
     bool? emboss,
     void Function()? onTap,
   }) {
-    return ClayContainer(
-      height: height,
-      width: width,
-      color: color ?? materialColor.shade800,
-      surfaceColor: surfaceColor,
-      parentColor: parentColor,
-      spread: spread,
-      borderRadius: customBorderRadiusValue ?? borderRadius,
-      customBorderRadius: customBorderRadius,
-      curveType: curveType,
-      depth: depth,
-      emboss: emboss ?? true,
-      child: GestureDetector(
-        onDoubleTap: onTap,
-        child: this,
-      ),
-    );
+    return Builder(builder: (context) {
+      final SettingsBloc settingsBloc = context.watch<SettingsBloc>();
+      return ClayContainer(
+        height: height,
+        width: width,
+        color: color ?? settingsBloc.state.materialColor.shade800,
+        surfaceColor: surfaceColor,
+        parentColor: parentColor,
+        spread: spread,
+        borderRadius:
+            customBorderRadiusValue ?? settingsBloc.state.borderRadius,
+        customBorderRadius: customBorderRadius,
+        curveType: curveType,
+        depth: depth,
+        emboss: emboss ?? true,
+        child: GestureDetector(
+          onDoubleTap: onTap,
+          child: this,
+        ),
+      );
+    });
   }
 }
 

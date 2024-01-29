@@ -24,11 +24,11 @@ class GenericPrayerCounterUI extends UI {
             )
             .pad()
             .container(
-              customBorderRadiusValue: borderRadius,
+              // customBorderRadiusValue: borderRadius,
               spread: 60,
               depth: 120,
-              color: materialColor.shade400,
-              parentColor: materialColor.shade800,
+              // color: materialColor.shade400,
+              // parentColor: materialColor.shade800,
             ),
         Row(
           children: [

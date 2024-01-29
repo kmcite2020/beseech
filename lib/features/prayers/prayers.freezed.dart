@@ -25,21 +25,26 @@ mixin _$Prayers {
   int get asar => throw _privateConstructorUsedError;
   int get maghrib => throw _privateConstructorUsedError;
   int get isha => throw _privateConstructorUsedError;
+  Map<String, Prayer> get prayers => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int fajr, int zuhr, int asar, int maghrib, int isha)
+    required TResult Function(int fajr, int zuhr, int asar, int maghrib,
+            int isha, Map<String, Prayer> prayers)
         raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int fajr, int zuhr, int asar, int maghrib, int isha)? raw,
+    TResult? Function(int fajr, int zuhr, int asar, int maghrib, int isha,
+            Map<String, Prayer> prayers)?
+        raw,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int fajr, int zuhr, int asar, int maghrib, int isha)? raw,
+    TResult Function(int fajr, int zuhr, int asar, int maghrib, int isha,
+            Map<String, Prayer> prayers)?
+        raw,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,7 +74,13 @@ abstract class $PrayersCopyWith<$Res> {
   factory $PrayersCopyWith(Prayers value, $Res Function(Prayers) then) =
       _$PrayersCopyWithImpl<$Res, Prayers>;
   @useResult
-  $Res call({int fajr, int zuhr, int asar, int maghrib, int isha});
+  $Res call(
+      {int fajr,
+      int zuhr,
+      int asar,
+      int maghrib,
+      int isha,
+      Map<String, Prayer> prayers});
 }
 
 /// @nodoc
@@ -90,6 +101,7 @@ class _$PrayersCopyWithImpl<$Res, $Val extends Prayers>
     Object? asar = null,
     Object? maghrib = null,
     Object? isha = null,
+    Object? prayers = null,
   }) {
     return _then(_value.copyWith(
       fajr: null == fajr
@@ -112,6 +124,10 @@ class _$PrayersCopyWithImpl<$Res, $Val extends Prayers>
           ? _value.isha
           : isha // ignore: cast_nullable_to_non_nullable
               as int,
+      prayers: null == prayers
+          ? _value.prayers
+          : prayers // ignore: cast_nullable_to_non_nullable
+              as Map<String, Prayer>,
     ) as $Val);
   }
 }
@@ -123,7 +139,13 @@ abstract class _$$PrayersImplCopyWith<$Res> implements $PrayersCopyWith<$Res> {
       __$$PrayersImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int fajr, int zuhr, int asar, int maghrib, int isha});
+  $Res call(
+      {int fajr,
+      int zuhr,
+      int asar,
+      int maghrib,
+      int isha,
+      Map<String, Prayer> prayers});
 }
 
 /// @nodoc
@@ -142,6 +164,7 @@ class __$$PrayersImplCopyWithImpl<$Res>
     Object? asar = null,
     Object? maghrib = null,
     Object? isha = null,
+    Object? prayers = null,
   }) {
     return _then(_$PrayersImpl(
       fajr: null == fajr
@@ -164,6 +187,10 @@ class __$$PrayersImplCopyWithImpl<$Res>
           ? _value.isha
           : isha // ignore: cast_nullable_to_non_nullable
               as int,
+      prayers: null == prayers
+          ? _value._prayers
+          : prayers // ignore: cast_nullable_to_non_nullable
+              as Map<String, Prayer>,
     ));
   }
 }
@@ -176,8 +203,10 @@ class _$PrayersImpl extends _Prayers {
       required this.zuhr,
       required this.asar,
       required this.maghrib,
-      required this.isha})
-      : super._();
+      required this.isha,
+      final Map<String, Prayer> prayers = const <String, Prayer>{}})
+      : _prayers = prayers,
+        super._();
 
   factory _$PrayersImpl.fromJson(Map<String, dynamic> json) =>
       _$$PrayersImplFromJson(json);
@@ -192,10 +221,18 @@ class _$PrayersImpl extends _Prayers {
   final int maghrib;
   @override
   final int isha;
+  final Map<String, Prayer> _prayers;
+  @override
+  @JsonKey()
+  Map<String, Prayer> get prayers {
+    if (_prayers is EqualUnmodifiableMapView) return _prayers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_prayers);
+  }
 
   @override
   String toString() {
-    return 'Prayers.raw(fajr: $fajr, zuhr: $zuhr, asar: $asar, maghrib: $maghrib, isha: $isha)';
+    return 'Prayers.raw(fajr: $fajr, zuhr: $zuhr, asar: $asar, maghrib: $maghrib, isha: $isha, prayers: $prayers)';
   }
 
   @override
@@ -207,12 +244,14 @@ class _$PrayersImpl extends _Prayers {
             (identical(other.zuhr, zuhr) || other.zuhr == zuhr) &&
             (identical(other.asar, asar) || other.asar == asar) &&
             (identical(other.maghrib, maghrib) || other.maghrib == maghrib) &&
-            (identical(other.isha, isha) || other.isha == isha));
+            (identical(other.isha, isha) || other.isha == isha) &&
+            const DeepCollectionEquality().equals(other._prayers, _prayers));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, fajr, zuhr, asar, maghrib, isha);
+  int get hashCode => Object.hash(runtimeType, fajr, zuhr, asar, maghrib, isha,
+      const DeepCollectionEquality().hash(_prayers));
 
   @JsonKey(ignore: true)
   @override
@@ -223,29 +262,33 @@ class _$PrayersImpl extends _Prayers {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int fajr, int zuhr, int asar, int maghrib, int isha)
+    required TResult Function(int fajr, int zuhr, int asar, int maghrib,
+            int isha, Map<String, Prayer> prayers)
         raw,
   }) {
-    return raw(fajr, zuhr, asar, maghrib, isha);
+    return raw(fajr, zuhr, asar, maghrib, isha, prayers);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int fajr, int zuhr, int asar, int maghrib, int isha)? raw,
+    TResult? Function(int fajr, int zuhr, int asar, int maghrib, int isha,
+            Map<String, Prayer> prayers)?
+        raw,
   }) {
-    return raw?.call(fajr, zuhr, asar, maghrib, isha);
+    return raw?.call(fajr, zuhr, asar, maghrib, isha, prayers);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int fajr, int zuhr, int asar, int maghrib, int isha)? raw,
+    TResult Function(int fajr, int zuhr, int asar, int maghrib, int isha,
+            Map<String, Prayer> prayers)?
+        raw,
     required TResult orElse(),
   }) {
     if (raw != null) {
-      return raw(fajr, zuhr, asar, maghrib, isha);
+      return raw(fajr, zuhr, asar, maghrib, isha, prayers);
     }
     return orElse();
   }
@@ -292,7 +335,8 @@ abstract class _Prayers extends Prayers {
       required final int zuhr,
       required final int asar,
       required final int maghrib,
-      required final int isha}) = _$PrayersImpl;
+      required final int isha,
+      final Map<String, Prayer> prayers}) = _$PrayersImpl;
   const _Prayers._() : super._();
 
   factory _Prayers.fromJson(Map<String, dynamic> json) = _$PrayersImpl.fromJson;
@@ -308,6 +352,8 @@ abstract class _Prayers extends Prayers {
   @override
   int get isha;
   @override
+  Map<String, Prayer> get prayers;
+  @override
   @JsonKey(ignore: true)
   _$$PrayersImplCopyWith<_$PrayersImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -320,7 +366,7 @@ Prayer _$PrayerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Prayer {
   String get name => throw _privateConstructorUsedError;
-  List<dynamic> get prayers => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -332,7 +378,7 @@ abstract class $PrayerCopyWith<$Res> {
   factory $PrayerCopyWith(Prayer value, $Res Function(Prayer) then) =
       _$PrayerCopyWithImpl<$Res, Prayer>;
   @useResult
-  $Res call({String name, List<dynamic> prayers});
+  $Res call({String name, int count});
 }
 
 /// @nodoc
@@ -349,17 +395,17 @@ class _$PrayerCopyWithImpl<$Res, $Val extends Prayer>
   @override
   $Res call({
     Object? name = null,
-    Object? prayers = null,
+    Object? count = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      prayers: null == prayers
-          ? _value.prayers
-          : prayers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -371,7 +417,7 @@ abstract class _$$PrayerImplCopyWith<$Res> implements $PrayerCopyWith<$Res> {
       __$$PrayerImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<dynamic> prayers});
+  $Res call({String name, int count});
 }
 
 /// @nodoc
@@ -386,17 +432,17 @@ class __$$PrayerImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? prayers = null,
+    Object? count = null,
   }) {
     return _then(_$PrayerImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      prayers: null == prayers
-          ? _value._prayers
-          : prayers // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+      count: null == count
+          ? _value.count
+          : count // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -404,9 +450,7 @@ class __$$PrayerImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$PrayerImpl extends _Prayer {
-  const _$PrayerImpl({this.name = '', final List<dynamic> prayers = const []})
-      : _prayers = prayers,
-        super._();
+  const _$PrayerImpl({this.name = '', this.count = 0}) : super._();
 
   factory _$PrayerImpl.fromJson(Map<String, dynamic> json) =>
       _$$PrayerImplFromJson(json);
@@ -414,18 +458,13 @@ class _$PrayerImpl extends _Prayer {
   @override
   @JsonKey()
   final String name;
-  final List<dynamic> _prayers;
   @override
   @JsonKey()
-  List<dynamic> get prayers {
-    if (_prayers is EqualUnmodifiableListView) return _prayers;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_prayers);
-  }
+  final int count;
 
   @override
   String toString() {
-    return 'Prayer(name: $name, prayers: $prayers)';
+    return 'Prayer(name: $name, count: $count)';
   }
 
   @override
@@ -434,13 +473,12 @@ class _$PrayerImpl extends _Prayer {
         (other.runtimeType == runtimeType &&
             other is _$PrayerImpl &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality().equals(other._prayers, _prayers));
+            (identical(other.count, count) || other.count == count));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_prayers));
+  int get hashCode => Object.hash(runtimeType, name, count);
 
   @JsonKey(ignore: true)
   @override
@@ -457,8 +495,7 @@ class _$PrayerImpl extends _Prayer {
 }
 
 abstract class _Prayer extends Prayer {
-  const factory _Prayer({final String name, final List<dynamic> prayers}) =
-      _$PrayerImpl;
+  const factory _Prayer({final String name, final int count}) = _$PrayerImpl;
   const _Prayer._() : super._();
 
   factory _Prayer.fromJson(Map<String, dynamic> json) = _$PrayerImpl.fromJson;
@@ -466,7 +503,7 @@ abstract class _Prayer extends Prayer {
   @override
   String get name;
   @override
-  List<dynamic> get prayers;
+  int get count;
   @override
   @JsonKey(ignore: true)
   _$$PrayerImplCopyWith<_$PrayerImpl> get copyWith =>
